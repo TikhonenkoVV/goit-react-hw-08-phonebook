@@ -6,14 +6,26 @@ import { hendleAddContact } from 'store/operations';
 const New = () => {
     const dispatch = useDispatch();
 
-    const hendleSetState = values => {
+    const hendleSetState = (_, values) => {
         dispatch(hendleAddContact(values));
+    };
+
+    const initialState = {
+        name: '',
+        surname: '',
+        number: '',
+        email: '',
+        img: '',
     };
 
     return (
         <Section>
             <Container>
-                <ContactForm onSetState={hendleSetState} />
+                <ContactForm
+                    contact={initialState}
+                    title="Add contact"
+                    onSetState={hendleSetState}
+                />
             </Container>
         </Section>
     );

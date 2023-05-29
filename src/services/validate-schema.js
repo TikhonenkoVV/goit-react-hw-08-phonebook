@@ -59,4 +59,10 @@ export const validationSchema = yup.object().shape({
         .required(
             'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
         ),
+    email: yup.string().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i, {
+        message: 'Invalid email address',
+        test: value => {
+            return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value);
+        },
+    }),
 });

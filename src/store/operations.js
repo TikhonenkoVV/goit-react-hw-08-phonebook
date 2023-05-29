@@ -50,3 +50,16 @@ export const hendleDeleteContact = createAsyncThunk(
         }
     }
 );
+
+export const hendleEditContact = createAsyncThunk(
+    'contacts/editContact',
+    async (arg, { rejectWithValue }) => {
+        const { contactId, values } = arg;
+        try {
+            const response = await axios.put(`/contacts/${contactId}`, values);
+            return response.data;
+        } catch (err) {
+            rejectWithValue(err.message);
+        }
+    }
+);

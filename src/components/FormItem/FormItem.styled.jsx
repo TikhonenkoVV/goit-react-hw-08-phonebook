@@ -20,7 +20,7 @@ export const Label = styled.label`
     }
 
     &:nth-of-type(5) {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 `;
 

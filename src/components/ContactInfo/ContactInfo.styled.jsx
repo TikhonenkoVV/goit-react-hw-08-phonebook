@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import { LinkStyled } from 'components/App.styled';
 
 export const ContactCard = styled.div`
     position: relative;
@@ -11,22 +11,16 @@ export const PhotoWrapper = styled.div`
     margin-bottom: 20px;
 `;
 
-export const LinkStyled = styled(Link)`
+export const BtnGoBack = styled(LinkStyled)`
     position: absolute;
     top: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 4px;
-    background-color: ${props => props.theme.colors.btn};
-    transition: color 250ms;
-    &:hover,
-    &:focus {
-        color: ${props => props.theme.colors.hover};
-    }
+`;
+
+export const BtnEdit = styled(LinkStyled)`
+    position: absolute;
+    top: 0;
+    right: 0;
 `;
 
 export const Photo = styled.img`

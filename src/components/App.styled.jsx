@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 export const Section = styled.section`
     padding: 20px 0;
@@ -21,6 +22,21 @@ export const Container = styled.div`
     }
     @media (min-width: ${props => props.theme.breakpoints.l}) {
         width: ${props => props.theme.breakpoints.l};
+    }
+`;
+
+export const LinkStyled = styled(Link)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    background-color: ${props => props.theme.colors.btn};
+    transition: color 250ms;
+    &:hover,
+    &:focus {
+        color: ${props => props.theme.colors.hover};
     }
 `;
 

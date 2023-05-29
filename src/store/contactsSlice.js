@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+    hendleAddContact,
     hendleDeleteContact,
+    hendleEditContact,
     hendleFetchContact,
     hendleFetchContactById,
 } from './operations';
@@ -10,19 +12,11 @@ const initialState = {
     isLoading: false,
     error: null,
     contact: {},
-    currentImg: '',
 };
 
 const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
-    reducers: {
-        setCurrentImg: {
-            reducer(state, action) {
-                state.currentImg = action.payload;
-            },
-        },
-    },
     extraReducers: builder => {
         builder
             .addCase(hendleFetchContact.pending, state => {
@@ -51,8 +45,43 @@ const contactsSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(hendleDeleteContact.pending, state => {
+            .addCase(hendleAddContact.pending, state => {
                 state.isLoading = true;
+            })
+            .addCase(hendleAddContact.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.contactsArray.push(action.payload);
+            })
+            .addCase(hendleAddContact.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(hendleEditContact.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(hendleEditContact.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                const newArray = [];
+                state.contactsArray.map(el =>
+                    el.id === action.payload.id
+                        ? newArray.push(action.payload)
+                        : newArray.push(el)
+                );
+                state.contactsArray = newArray;
+                // const i = state.contactsArray.findIndex(
+                //     contact => contact.id === action.payload.id
+                // );
+                // state.contactsArray[i].name = action.payload.name;
+                // state.contactsArray[i].surname = action.payload.surname;
+                // state.contactsArray[i].number = action.payload.number;
+                // state.contactsArray[i].email = action.payload.email;
+                // state.contactsArray[i].img = action.payload.img;
+            })
+            .addCase(hendleEditContact.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
             })
             .addCase(hendleDeleteContact.fulfilled, (state, action) => {
                 state.isLoading = false;
@@ -70,5 +99,3 @@ const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
-
-export const { setCurrentImg } = contactsSlice.actions;
