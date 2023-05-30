@@ -52,3 +52,24 @@ export const hendleSignOut = createAsyncThunk(
         }
     }
 );
+
+export const hendleRefreshUser = createAsyncThunk(
+    'auth/refresh',
+    async (_, { rejectWithValue, getState }) => {
+        const state = getState();
+        const persistToken = state.auth.token;
+        if (persistToken === null) {
+            return rejectWithValue();
+        }
+
+        setAuthHeader(persistToken);
+        try {
+            const { data } = await axios.get(
+                'https://connections-api.herokuapp.com/users/current'
+            );
+            return data;
+        } catch (err) {
+            rejectWithValue(err.message);
+        }
+    }
+);

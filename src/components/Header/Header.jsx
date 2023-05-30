@@ -50,23 +50,31 @@ export const Header = () => {
                             Contacts
                         </HomeLink>
                     </Nav>
-                    <Filter />
-                    <AddLink to={'new'}>
-                        <Svg w={20} h={20} use={`${sprite}#icon-add-contact`} />
-                    </AddLink>
                     {isSignedIn && (
-                        <ProfileMenu onClick={onToggle}>
-                            <Avatar src={avatar} alt="avatar" />
-                            <UserMenu ref={userMenu}>
-                                <ProfileDescription>
-                                    Signed in as
-                                </ProfileDescription>
-                                <ProfileDescription>
-                                    {signedInUser}
-                                </ProfileDescription>
-                                <BtnLogOut onClick={onLogOut}>Logout</BtnLogOut>
-                            </UserMenu>
-                        </ProfileMenu>
+                        <>
+                            <Filter />
+                            <AddLink to={'new'}>
+                                <Svg
+                                    w={20}
+                                    h={20}
+                                    use={`${sprite}#icon-add-contact`}
+                                />
+                            </AddLink>
+                            <ProfileMenu onClick={onToggle}>
+                                <Avatar src={avatar} alt="avatar" />
+                                <UserMenu ref={userMenu}>
+                                    <ProfileDescription>
+                                        Signed in as
+                                    </ProfileDescription>
+                                    <ProfileDescription>
+                                        {signedInUser}
+                                    </ProfileDescription>
+                                    <BtnLogOut onClick={onLogOut}>
+                                        Logout
+                                    </BtnLogOut>
+                                </UserMenu>
+                            </ProfileMenu>
+                        </>
                     )}
                 </Wrapper>
             </Container>

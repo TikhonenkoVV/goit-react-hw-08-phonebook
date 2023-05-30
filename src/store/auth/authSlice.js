@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { hendleSignIn, hendleSignOut, hendleSignUp } from './authOperations';
+import {
+    hendleRefreshUser,
+    hendleSignIn,
+    hendleSignOut,
+    hendleSignUp,
+} from './authOperations';
 
 const initialState = {
     user: { name: null, email: null },
@@ -45,7 +50,7 @@ const authSlice = createSlice({
             .addCase(hendleSignOut.pending, state => {
                 state.isLoading = true;
             })
-            .addCase(hendleSignOut.fulfilled, (state, action) => {
+            .addCase(hendleSignOut.fulfilled, state => {
                 state.user = { name: null, email: null };
                 state.token = null;
                 state.isSignedIn = false;
@@ -53,6 +58,19 @@ const authSlice = createSlice({
                 state.error = null;
             })
             .addCase(hendleSignOut.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(hendleRefreshUser.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(hendleRefreshUser.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.isSignedIn = true;
+                state.isLoading = false;
+                state.error = null;
+            })
+            .addCase(hendleRefreshUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });
