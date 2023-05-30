@@ -11,10 +11,7 @@ export const hendleSignUp = createAsyncThunk(
     'auth/signUp',
     async (credentials, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post(
-                'https://connections-api.herokuapp.com/users/signup',
-                credentials
-            );
+            const { data } = await axios.post('/users/signup', credentials);
             setAuthHeader(data.token);
             return data;
         } catch (err) {
@@ -27,10 +24,7 @@ export const hendleSignIn = createAsyncThunk(
     'auth/signIn',
     async (credentials, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post(
-                'https://connections-api.herokuapp.com/users/login',
-                credentials
-            );
+            const { data } = await axios.post('/users/login', credentials);
             setAuthHeader(data.token);
             return data;
         } catch (err) {
@@ -43,9 +37,7 @@ export const hendleSignOut = createAsyncThunk(
     'auth/signout',
     async (_, { rejectWithValue }) => {
         try {
-            await axios.post(
-                'https://connections-api.herokuapp.com/users/logout'
-            );
+            await axios.post('/users/logout');
             setAuthHeader('');
         } catch (err) {
             rejectWithValue(err.message);
@@ -64,9 +56,7 @@ export const hendleRefreshUser = createAsyncThunk(
 
         setAuthHeader(persistToken);
         try {
-            const { data } = await axios.get(
-                'https://connections-api.herokuapp.com/users/current'
-            );
+            const { data } = await axios.get('/users/current');
             return data;
         } catch (err) {
             rejectWithValue(err.message);
