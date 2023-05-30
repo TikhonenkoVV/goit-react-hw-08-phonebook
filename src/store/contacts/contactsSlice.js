@@ -5,7 +5,7 @@ import {
     hendleEditContact,
     hendleFetchContact,
     hendleFetchContactById,
-} from './operations';
+} from './contactsOperations';
 
 const initialState = {
     contactsArray: [],

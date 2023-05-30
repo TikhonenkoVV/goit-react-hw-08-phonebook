@@ -16,7 +16,7 @@ import { Svg } from 'components/icon/Icon';
 import sprite from '../../img/icons.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { hendleFetchContactById } from 'store/operations';
+import { hendleFetchContactById } from 'store/contacts/contactsOperations';
 import { selectContact } from 'store/selector';
 
 export const ContactInfo = () => {

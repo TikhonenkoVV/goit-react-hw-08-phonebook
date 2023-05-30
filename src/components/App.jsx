@@ -7,12 +7,14 @@ import Edit from 'Pages/Edit';
 const Home = lazy(() => import('../Pages/Home'));
 const Contact = lazy(() => import('../Pages/Contact'));
 const New = lazy(() => import('../Pages/New'));
+const Auth = lazy(() => import('../Pages/Auth'));
 
 export const App = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
+                <Route path="auth" element={<Auth />} />
                 <Route path="new" element={<New />} />
                 <Route path="contact/:contactId" element={<Contact />} />
                 <Route path="contact/:contactId/edit" element={<Edit />} />

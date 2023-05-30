@@ -4,6 +4,7 @@ import {
     ContactLink,
     ContactListHeader,
     ContactListHeaderBox,
+    ContactListSection,
     FirstElement,
     Item,
     List,
@@ -17,14 +18,17 @@ import { useLocation } from 'react-router-dom';
 import sprite from '../../img/icons.svg';
 import { Svg } from 'components/icon/Icon';
 import { useEffect } from 'react';
-import { hendleDeleteContact, hendleFetchContact } from 'store/operations';
+import {
+    hendleDeleteContact,
+    hendleFetchContact,
+} from 'store/contacts/contactsOperations';
 
 export const ContactList = () => {
     const dispatch = useDispatch();
     const list = useSelector(selectFilteredContacts);
 
     useEffect(() => {
-        dispatch(hendleFetchContact());
+        // dispatch(hendleFetchContact());
     }, [dispatch]);
 
     const delContact = id => dispatch(hendleDeleteContact(id));
@@ -32,7 +36,7 @@ export const ContactList = () => {
     const location = useLocation();
     return (
         <>
-            <section>
+            <ContactListSection>
                 <Container>
                     <ContactListHeader>
                         <ContactListHeaderBox>
@@ -83,7 +87,7 @@ export const ContactList = () => {
                         )}
                     </List>
                 </Container>
-            </section>
+            </ContactListSection>
         </>
     );
 };

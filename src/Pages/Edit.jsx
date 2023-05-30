@@ -1,7 +1,7 @@
 import { Container, Section } from 'components/App.styled';
 import { ContactForm } from 'components/Contact-form/ContactForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { hendleEditContact } from 'store/operations';
+import { hendleEditContact } from 'store/contacts/contactsOperations';
 import { selectContact } from 'store/selector';
 
 const Edit = () => {

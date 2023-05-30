@@ -1,7 +1,7 @@
 import { Container, Section } from 'components/App.styled';
 import { ContactForm } from 'components/Contact-form/ContactForm';
 import { useDispatch } from 'react-redux';
-import { hendleAddContact } from 'store/operations';
+import { hendleAddContact } from 'store/contacts/contactsOperations';
 
 const New = () => {
     const dispatch = useDispatch();
