@@ -1,6 +1,5 @@
 import defaultPhoto from '../../img/avatar-default.png';
 import {
-    BtnEdit,
     BtnGoBack,
     ContactCard,
     ContactTitle,
@@ -11,7 +10,7 @@ import {
     Photo,
     PhotoWrapper,
 } from './ContactInfo.styled';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Svg } from 'components/icon/Icon';
 import sprite from '../../img/icons.svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +23,6 @@ export const ContactInfo = () => {
     const { contactId } = useParams();
     const { name, surname, number, email, img } = useSelector(selectContact);
     const fullName = `${name} ${surname}`.trim();
-    const location = useLocation();
 
     useEffect(() => {
         dispatch(hendleFetchContactById(contactId));
@@ -36,9 +34,6 @@ export const ContactInfo = () => {
                 <BtnGoBack to={'/'}>
                     <Svg w={20} h={20} use={`${sprite}#icon-arrow-left`} />
                 </BtnGoBack>
-                <BtnEdit to={'edit'} state={{ from: location }}>
-                    <Svg w={20} h={20} use={`${sprite}#icon-pencil`} />
-                </BtnEdit>
                 <Photo src={img !== '' ? img : defaultPhoto} alt="" />
             </PhotoWrapper>
             <ContactTitle>{fullName}</ContactTitle>

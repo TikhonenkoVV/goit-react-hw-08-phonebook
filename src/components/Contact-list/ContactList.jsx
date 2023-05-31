@@ -28,7 +28,7 @@ export const ContactList = () => {
     const list = useSelector(selectFilteredContacts);
 
     useEffect(() => {
-        // dispatch(hendleFetchContact());
+        dispatch(hendleFetchContact());
     }, [dispatch]);
 
     const delContact = id => dispatch(hendleDeleteContact(id));

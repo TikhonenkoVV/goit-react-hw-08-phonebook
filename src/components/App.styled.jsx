@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
@@ -42,6 +43,15 @@ export const LinkStyled = styled(Link)`
 
 export const MainStyled = styled.main``;
 
+const animation = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
 export const AuthWrapper = styled.div`
     margin: 0 auto;
     max-width: 400px;
@@ -49,6 +59,11 @@ export const AuthWrapper = styled.div`
     border-radius: 4px;
     background-color: ${props => props.theme.colors.mainBackground};
     overflow: hidden;
+    opacity: 0;
+    animation-name: ${animation};
+    animation-duration: 250ms;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
 `;
 
 export const FormWrapper = styled.div`

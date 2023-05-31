@@ -6,6 +6,7 @@ import {
     hendleFetchContact,
     hendleFetchContactById,
 } from './contactsOperations';
+import { normalizeContact, normalizePayload } from 'services/normalize';
 
 const initialState = {
     contactsArray: [],
@@ -25,7 +26,8 @@ const contactsSlice = createSlice({
             .addCase(hendleFetchContact.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
-                state.contactsArray = action.payload;
+                const res = normalizePayload(action.payload);
+                state.contactsArray = res;
                 state.currentImg = '';
                 state.contact = {};
             })
@@ -39,7 +41,8 @@ const contactsSlice = createSlice({
             .addCase(hendleFetchContactById.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
-                state.contact = action.payload;
+                const res = normalizeContact(action.payload);
+                state.contact = res;
             })
             .addCase(hendleFetchContactById.rejected, (state, action) => {
                 state.isLoading = false;
@@ -54,32 +57,6 @@ const contactsSlice = createSlice({
                 state.contactsArray.push(action.payload);
             })
             .addCase(hendleAddContact.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            })
-            .addCase(hendleEditContact.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(hendleEditContact.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.error = null;
-                const newArray = [];
-                state.contactsArray.map(el =>
-                    el.id === action.payload.id
-                        ? newArray.push(action.payload)
-                        : newArray.push(el)
-                );
-                state.contactsArray = newArray;
-                // const i = state.contactsArray.findIndex(
-                //     contact => contact.id === action.payload.id
-                // );
-                // state.contactsArray[i].name = action.payload.name;
-                // state.contactsArray[i].surname = action.payload.surname;
-                // state.contactsArray[i].number = action.payload.number;
-                // state.contactsArray[i].email = action.payload.email;
-                // state.contactsArray[i].img = action.payload.img;
-            })
-            .addCase(hendleEditContact.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })

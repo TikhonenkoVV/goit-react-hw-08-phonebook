@@ -8,7 +8,7 @@ import {
 } from './ContactForm.styled';
 import { Formik } from 'formik';
 import { validationSchema } from 'services/validate-schema';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { selectContacts } from 'store/selector';
 import sprite from '../../img/icons.svg';
@@ -19,6 +19,8 @@ import { FormItem } from 'components/FormItem/FormItem';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fbStorage } from '../../services/fireBase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { normalizeValues } from 'services/normalize';
+import { hendleAddContact } from 'store/contacts/contactsOperations';
 
 export const ContactForm = ({ contact, title, onSetState }) => {
     const contacts = useSelector(selectContacts);
@@ -26,9 +28,14 @@ export const ContactForm = ({ contact, title, onSetState }) => {
     const contactId = useParams().contactId ?? '';
     const [uploadImg, setUploadImg] = useState('');
 
-    const [contactImg, setContactImg] = useState(
-        contact.img !== '' ? contact.img : defaultPhoto
-    );
+    const [contactImg, setContactImg] = useState(defaultPhoto);
+
+    const dispatch = useDispatch();
+
+    const hendleSetState = values => {
+        const val = normalizeValues(values);
+        dispatch(hendleAddContact(val));
+    };
 
     const addImg = useRef();
 
@@ -56,10 +63,10 @@ export const ContactForm = ({ contact, title, onSetState }) => {
         <Formik
             validationSchema={validationSchema}
             initialValues={{
-                name: `${contact.name ?? ''}`,
-                surname: `${contact.surname ?? ''}`,
-                number: `${contact.number ?? ''}`,
-                email: `${contact.email ?? ''}`,
+                name: '',
+                surname: '',
+                number: '',
+                email: '',
                 img: '',
             }}
             onSubmit={(values, { resetForm }) => {
@@ -84,7 +91,7 @@ export const ContactForm = ({ contact, title, onSetState }) => {
                     return;
                 }
                 values.img = uploadImg;
-                onSetState(contactId, values);
+                hendleSetState(values);
                 resetForm();
                 navigate('/');
             }}
@@ -147,7 +154,7 @@ export const ContactForm = ({ contact, title, onSetState }) => {
                                     h={20}
                                     use={`${sprite}#icon-save-contact`}
                                 />
-                                {title}
+                                Add contact
                             </SubmitButton>
                         </FormikForm>
                     </>

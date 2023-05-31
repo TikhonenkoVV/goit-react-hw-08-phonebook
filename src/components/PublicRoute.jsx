@@ -2,8 +2,9 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsSignedIn } from 'store/selector';
 
-export const PrivateRoute = ({ el }) => {
+export const PublicRoute = ({ el, restricted = false }) => {
     const isSignedIn = useSelector(selectIsSignedIn);
+    const shouldRedirect = isSignedIn && restricted;
 
-    return isSignedIn ? el : <Navigate to={'auth'} />;
+    return shouldRedirect ? <Navigate to={'/'} /> : el;
 };

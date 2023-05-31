@@ -17,12 +17,6 @@ export const BtnGoBack = styled(LinkStyled)`
     left: 0;
 `;
 
-export const BtnEdit = styled(LinkStyled)`
-    position: absolute;
-    top: 0;
-    right: 0;
-`;
-
 export const Photo = styled.img`
     display: block;
     width: 150px;
