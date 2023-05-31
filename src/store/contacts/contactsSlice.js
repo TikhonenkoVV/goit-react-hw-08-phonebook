@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
     hendleAddContact,
     hendleDeleteContact,
-    hendleEditContact,
     hendleFetchContact,
     hendleFetchContactById,
 } from './contactsOperations';
