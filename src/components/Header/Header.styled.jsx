@@ -36,11 +36,11 @@ export const HomeLink = styled(Link)`
     }
 `;
 
-export const AddLink = styled(Link)`
+export const NavLinkStyled = styled(Link)`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
+    width: 120px;
     height: 40px;
     border-radius: 4px;
     background-color: ${props => props.theme.colors.btn};

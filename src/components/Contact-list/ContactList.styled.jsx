@@ -1,9 +1,4 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-
-export const ContactListSection = styled.section`
-    padding-top: 80px;
-`;
 
 export const ContactListHeader = styled.div`
     padding: 15px 50px 15px 10px;
@@ -34,7 +29,7 @@ export const Item = styled.li`
     }
 `;
 
-export const ContactLink = styled(Link)`
+export const ContactLink = styled.a`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     width: calc(100% - 30px);

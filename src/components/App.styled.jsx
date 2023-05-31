@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 export const Section = styled.section`
-    padding: 100px 0;
+    padding: 100px 0 0;
 `;
 
 export const Container = styled.div`
@@ -24,6 +24,12 @@ export const Container = styled.div`
     @media (min-width: ${props => props.theme.breakpoints.l}) {
         width: ${props => props.theme.breakpoints.l};
     }
+`;
+
+export const HomeTitle = styled.h1`
+    padding: 200px;
+    text-align: center;
+    width: 100%;
 `;
 
 export const LinkStyled = styled(Link)`

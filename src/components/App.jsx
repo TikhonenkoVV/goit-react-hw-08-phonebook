@@ -8,8 +8,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 
 const Home = lazy(() => import('../Pages/Home'));
-const Contact = lazy(() => import('../Pages/Contact'));
-const New = lazy(() => import('../Pages/New'));
+const Contacts = lazy(() => import('../Pages/Contacts'));
 const Auth = lazy(() => import('../Pages/Auth'));
 
 export const App = () => {
@@ -21,15 +20,14 @@ export const App = () => {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<PrivateRoute el={<Home />} />} />
+                <Route index element={<PublicRoute el={<Home />} />} />
                 <Route
                     path="auth"
                     element={<PublicRoute el={<Auth />} restricted />}
                 />
-                <Route path="new" element={<PrivateRoute el={<New />} />} />
                 <Route
-                    path="contact/:contactId"
-                    element={<PrivateRoute el={<Contact />} />}
+                    path="contacts"
+                    element={<PrivateRoute el={<Contacts />} />}
                 />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />

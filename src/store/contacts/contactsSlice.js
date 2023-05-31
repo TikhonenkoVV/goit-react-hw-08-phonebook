@@ -3,15 +3,12 @@ import {
     hendleAddContact,
     hendleDeleteContact,
     hendleFetchContact,
-    hendleFetchContactById,
 } from './contactsOperations';
-import { normalizeContact } from 'services/normalize';
 
 const initialState = {
     contactsArray: [],
     isLoading: false,
     error: null,
-    contact: {},
 };
 
 const contactsSlice = createSlice({
@@ -33,19 +30,6 @@ const contactsSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
-            .addCase(hendleFetchContactById.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(hendleFetchContactById.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.error = null;
-                const res = normalizeContact(action.payload);
-                state.contact = res;
-            })
-            .addCase(hendleFetchContactById.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-            })
             .addCase(hendleAddContact.pending, state => {
                 state.isLoading = true;
             })
@@ -57,6 +41,9 @@ const contactsSlice = createSlice({
             .addCase(hendleAddContact.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
+            })
+            .addCase(hendleDeleteContact.pending, state => {
+                state.isLoading = true;
             })
             .addCase(hendleDeleteContact.fulfilled, (state, action) => {
                 state.isLoading = false;

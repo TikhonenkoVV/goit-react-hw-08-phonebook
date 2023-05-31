@@ -1,7 +1,7 @@
-import { ContactList } from 'components/Contact-list/ContactList';
+import { HomeTitle } from 'components/App.styled';
 
 const Home = () => {
-    return <ContactList />;
+    return <HomeTitle>Welcome to phonebook!</HomeTitle>;
 };
 
 export default Home;

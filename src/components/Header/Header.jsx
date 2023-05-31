@@ -1,11 +1,11 @@
 import { Container } from 'components/App.styled';
 import {
-    AddLink,
     Avatar,
     BtnLogOut,
     HeaderStyled,
     HomeLink,
     Nav,
+    NavLinkStyled,
     ProfileDescription,
     ProfileMenu,
     UserMenu,
@@ -47,19 +47,15 @@ export const Header = () => {
                                 h={40}
                                 use={`${sprite}#icon-address-book`}
                             />
-                            Contacts
+                            Home
                         </HomeLink>
                     </Nav>
-                    {isSignedIn && (
+                    {isSignedIn ? (
                         <>
                             <Filter />
-                            <AddLink to={'new'}>
-                                <Svg
-                                    w={20}
-                                    h={20}
-                                    use={`${sprite}#icon-add-contact`}
-                                />
-                            </AddLink>
+                            <NavLinkStyled to={'contacts'}>
+                                Contacts
+                            </NavLinkStyled>
                             <ProfileMenu onClick={onToggle}>
                                 <Avatar src={avatar} alt="avatar" />
                                 <UserMenu ref={userMenu}>
@@ -75,6 +71,8 @@ export const Header = () => {
                                 </UserMenu>
                             </ProfileMenu>
                         </>
+                    ) : (
+                        <NavLinkStyled to={'auth'}>Login</NavLinkStyled>
                     )}
                 </Wrapper>
             </Container>
