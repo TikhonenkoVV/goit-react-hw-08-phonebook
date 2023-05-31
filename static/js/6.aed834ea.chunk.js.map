@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/6.aed834ea.chunk.js","mappings":"yKAMA,UAJa,WACT,OAAO,SAAC,KAAD,UAAW,yBACrB,C","sources":["Pages/Home.jsx"],"sourcesContent":["import { HomeTitle } from 'components/App.styled';\n\nconst Home = () => {\n    return <HomeTitle>Welcome to phonebook!</HomeTitle>;\n};\n\nexport default Home;\n"],"names":[],"sourceRoot":""}
