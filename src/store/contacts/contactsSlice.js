@@ -5,7 +5,7 @@ import {
     hendleFetchContact,
     hendleFetchContactById,
 } from './contactsOperations';
-import { normalizeContact, normalizePayload } from 'services/normalize';
+import { normalizeContact } from 'services/normalize';
 
 const initialState = {
     contactsArray: [],
@@ -25,8 +25,7 @@ const contactsSlice = createSlice({
             .addCase(hendleFetchContact.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
-                const res = normalizePayload(action.payload);
-                state.contactsArray = res;
+                state.contactsArray = action.payload;
                 state.currentImg = '';
                 state.contact = {};
             })

@@ -21,12 +21,13 @@ import { selectContact } from 'store/selector';
 export const ContactInfo = () => {
     const dispatch = useDispatch();
     const { contactId } = useParams();
-    const { name, surname, number, email, img } = useSelector(selectContact);
-    const fullName = `${name} ${surname}`.trim();
+    const { name, number } = useSelector(selectContact);
 
     useEffect(() => {
         dispatch(hendleFetchContactById(contactId));
     }, [dispatch, contactId]);
+
+    const tel = `tel:${number}`;
 
     return (
         <ContactCard>
@@ -34,19 +35,15 @@ export const ContactInfo = () => {
                 <BtnGoBack to={'/'}>
                     <Svg w={20} h={20} use={`${sprite}#icon-arrow-left`} />
                 </BtnGoBack>
-                <Photo src={img !== '' ? img : defaultPhoto} alt="" />
+                <Photo src={defaultPhoto} alt="" />
             </PhotoWrapper>
-            <ContactTitle>{fullName}</ContactTitle>
+            <ContactTitle>{name}</ContactTitle>
             <DetailsWrapper>
                 <DetailsTitle>Contact info</DetailsTitle>
                 <Details>
                     <DetailsItem>
                         <p>Phone:</p>
-                        <a href="tel:+1234567890">{number}</a>
-                    </DetailsItem>
-                    <DetailsItem>
-                        <p>E-mail:</p>
-                        <a href="mailto:ford@gmail.com">{email}</a>
+                        <a href={tel}>{number}</a>
                     </DetailsItem>
                 </Details>
             </DetailsWrapper>

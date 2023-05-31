@@ -10,8 +10,7 @@ export const selectFilteredContacts = createSelector(
     [selectContacts, selectFilter],
     (contactsArray, filter) => {
         return contactsArray.filter(contact => {
-            const fullName = `${contact.name} ${contact.surname}`.trim();
-            return fullName.toLowerCase().includes(filter.toLowerCase());
+            return contact.name.toLowerCase().includes(filter.toLowerCase());
         });
     }
 );

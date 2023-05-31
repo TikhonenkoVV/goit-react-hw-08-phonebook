@@ -1,7 +1,6 @@
 import {
     FormikForm,
     SubmitButton,
-    AddPhoto,
     PhotoLabel,
     BtnClose,
     IconEdit,
@@ -13,72 +12,34 @@ import { toast } from 'react-toastify';
 import { selectContacts } from 'store/selector';
 import sprite from '../../img/icons.svg';
 import { Svg } from 'components/icon/Icon';
-import { useRef, useState } from 'react';
 import defaultPhoto from '../../img/avatar-default.png';
 import { FormItem } from 'components/FormItem/FormItem';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fbStorage } from '../../services/fireBase';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { normalizeValues } from 'services/normalize';
+import { useNavigate } from 'react-router-dom';
 import { hendleAddContact } from 'store/contacts/contactsOperations';
 
 export const ContactForm = ({ contact, title, onSetState }) => {
     const contacts = useSelector(selectContacts);
     const navigate = useNavigate();
-    const contactId = useParams().contactId ?? '';
-    const [uploadImg, setUploadImg] = useState('');
-
-    const [contactImg, setContactImg] = useState(defaultPhoto);
 
     const dispatch = useDispatch();
 
     const hendleSetState = values => {
-        const val = normalizeValues(values);
-        dispatch(hendleAddContact(val));
+        dispatch(hendleAddContact(values));
     };
-
-    const addImg = useRef();
-
-    const hendleUploadImg = photo => {
-        const imgRef = ref(fbStorage, `images/${photo.name}`);
-        uploadBytes(imgRef, photo).then(res => {
-            getDownloadURL(ref(fbStorage, res.metadata.fullPath)).then(url => {
-                setUploadImg(url);
-            });
-        });
-    };
-
-    const hendleFileChange = e => {
-        const photo = e.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(photo);
-        reader.onload = () => setContactImg(reader.result);
-        hendleUploadImg(photo);
-    };
-
-    const location = useLocation();
-    const goBackLink = location?.state?.from || '/';
 
     return (
         <Formik
             validationSchema={validationSchema}
             initialValues={{
                 name: '',
-                surname: '',
                 number: '',
-                email: '',
-                img: '',
             }}
             onSubmit={(values, { resetForm }) => {
                 const isNameExist = contacts.find(
-                    val =>
-                        val.name.toLowerCase() === values.name.toLowerCase() &&
-                        val.surname.toLowerCase() ===
-                            values.surname.toLowerCase() &&
-                        val.id !== contactId
+                    val => val.name.toLowerCase() === values.name.toLowerCase()
                 );
                 const isNumberExist = contacts.find(
-                    val => val.number === values.number && val.id !== contactId
+                    val => val.number === values.number
                 );
                 if (isNameExist) {
                     toast(`${values.name} is already in contacts.`);
@@ -90,7 +51,6 @@ export const ContactForm = ({ contact, title, onSetState }) => {
                     );
                     return;
                 }
-                values.img = uploadImg;
                 hendleSetState(values);
                 resetForm();
                 navigate('/');
@@ -100,22 +60,14 @@ export const ContactForm = ({ contact, title, onSetState }) => {
                 return (
                     <>
                         <FormikForm onSubmit={handleSubmit}>
-                            <BtnClose to={goBackLink}>
+                            <BtnClose to={'/'}>
                                 <Svg
                                     w={20}
                                     h={20}
                                     use={`${sprite}#icon-close`}
                                 />
                             </BtnClose>
-                            <AddPhoto
-                                ref={addImg}
-                                id="img"
-                                name="img"
-                                type="file"
-                                accept="image/jpeg"
-                                onChange={hendleFileChange}
-                            />
-                            <PhotoLabel htmlFor={'img'} file={contactImg}>
+                            <PhotoLabel htmlFor={'img'} file={defaultPhoto}>
                                 <IconEdit>
                                     <Svg
                                         w={20}
@@ -131,21 +83,9 @@ export const ContactForm = ({ contact, title, onSetState }) => {
                                 onChange={handleChange}
                             />
                             <FormItem
-                                type="text"
-                                name="surname"
-                                use="contact"
-                                onChange={handleChange}
-                            />
-                            <FormItem
                                 type="tel"
                                 name="number"
                                 use="phone"
-                                onChange={handleChange}
-                            />
-                            <FormItem
-                                type="email"
-                                name="email"
-                                use="email"
                                 onChange={handleChange}
                             />
                             <SubmitButton type="submit">

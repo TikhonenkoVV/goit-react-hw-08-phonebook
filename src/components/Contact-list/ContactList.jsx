@@ -46,45 +46,38 @@ export const ContactList = () => {
                         </ContactListHeaderBox>
                     </ContactListHeader>
                     <List>
-                        {list.map(
-                            ({ id, name, surname, number, email, img }) => {
-                                const fullName = name + ' ' + surname;
-                                return (
-                                    <Item key={id}>
-                                        <ContactLink
-                                            to={`contact/${id}`}
-                                            state={{ from: location }}
-                                        >
-                                            <NameWrapper>
-                                                <img
-                                                    src={
-                                                        img !== ''
-                                                            ? img
-                                                            : avatar
-                                                    }
-                                                    alt="avatar"
-                                                    width={30}
-                                                    height={30}
-                                                />
-                                                <p>{fullName.trim()}</p>
-                                            </NameWrapper>
-                                            <p>{number}</p>
-                                            <p>{email}</p>
-                                        </ContactLink>
-                                        <BtnDel
-                                            type="button"
-                                            onClick={() => delContact(id)}
-                                        >
-                                            <Svg
-                                                w={20}
-                                                h={20}
-                                                use={`${sprite}#icon-del-contact`}
+                        {list.map(({ id, name, number }) => {
+                            return (
+                                <Item key={id}>
+                                    <ContactLink
+                                        to={`contact/${id}`}
+                                        state={{ from: location }}
+                                    >
+                                        <NameWrapper>
+                                            <img
+                                                src={avatar}
+                                                alt="avatar"
+                                                width={30}
+                                                height={30}
                                             />
-                                        </BtnDel>
-                                    </Item>
-                                );
-                            }
-                        )}
+                                            <p>{name}</p>
+                                        </NameWrapper>
+                                        <p>{number}</p>
+                                        <p></p>
+                                    </ContactLink>
+                                    <BtnDel
+                                        type="button"
+                                        onClick={() => delContact(id)}
+                                    >
+                                        <Svg
+                                            w={20}
+                                            h={20}
+                                            use={`${sprite}#icon-del-contact`}
+                                        />
+                                    </BtnDel>
+                                </Item>
+                            );
+                        })}
                     </List>
                 </Container>
             </ContactListSection>
